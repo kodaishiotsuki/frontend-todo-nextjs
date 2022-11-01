@@ -11,7 +11,7 @@ const useQueryUser = () => {
     )
     return data
   }
-  return useQuery<Omit<User, 'hashedPassword'>>({
+  return useQuery<Omit<User, 'hashedPassword'>, Error>({
     queryKey: ['user'],
     queryFn: getUser,
     onError: (err: any) => {
