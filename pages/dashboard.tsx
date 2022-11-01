@@ -4,6 +4,8 @@ import axios from 'axios'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
+import TaskForm from '../components/TaskForm'
+import TaskList from '../components/TaskList'
 import UserInfo from '../components/UserInfo'
 
 const Dashboard: NextPage = () => {
@@ -11,6 +13,7 @@ const Dashboard: NextPage = () => {
   const queryClient = useQueryClient()
   const logout = async () => {
     queryClient.removeQueries(['user']) //userのキーに対応するキャッシュをクリア
+    queryClient.removeQueries(['tasks'])
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`)
     router.push('/')
   }
@@ -21,6 +24,8 @@ const Dashboard: NextPage = () => {
         onClick={logout}
       />
       <UserInfo />
+      <TaskForm />
+      <TaskList />
     </Layout>
   )
 }
